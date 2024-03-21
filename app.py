@@ -164,8 +164,8 @@ for epoch in range(1000):
     if epoch % print_every == 0:
         print(epoch, loss.item())
 
-for i in range(10):
-    print(generate_name(model, itos, stoi, block_size))
+# for i in range(10):
+#     print(generate_name(model, itos, stoi, block_size))
 
 
 
@@ -185,7 +185,7 @@ st.markdown("## Iris Species Prediction")
 context_size = st.slider(
     "Number of k characters prediction", min_value=1, max_value=10, value=5
 )
-embedding_dim = st.slider("Embedding dimension", min_value=1, max_value=100, value=50)
+embed_dim = st.slider("Embedding dimension", min_value=1, max_value=100, value=50)
 text_input = st.text_input("Enter text for next character prediction")
 
 # Predict button
