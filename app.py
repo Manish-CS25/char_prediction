@@ -122,6 +122,16 @@ class NextChar(nn.Module):
 model = NextChar(block_size, len(stoi), emb_dim, 10).to(device)
 model = torch.compile(model)
 
+
+# Use FX for symbolic tracing
+traced_model = torch.fx.symbolic_trace(model)
+
+# Optimize with Dynamo
+optimized_model = dynamo.optimize(traced_model)
+
+# Use the optimized model
+y_pred = optimized_model(x)
+
 g = torch.Generator()
 g.manual_seed(4000002)
 def generate_name(model, itos, stoi, block_size, max_len=10):
@@ -190,13 +200,16 @@ text_input = st.text_input("Enter text for next character prediction")
 
 # Predict button
 if st.button("Predict"):
-    # Create a new model with the user-specified embedding dimension
+    # Create a new model with the user-specified embedding 
+
+
+    
+    # Define your model
     model = NextChar(context_size, len(stoi), emb_dim, 10).to(device)
-    model = torch.compile(model)
 
-    # Convert the user's text input into a context for the model
-    context = [stoi[ch] for ch in text_input[-context_size:]]
+    # Convert the model to TorchScript
+    scripted_model = torch.jit.script(model)
 
-    # Generate and display the prediction
-    prediction = generate_name(model, itos, stoi, context_size)
+# Use the scripted model for prediction
+    prediction = generate_name(scripted_model, itos, stoi, context_size)
     st.write(prediction)
