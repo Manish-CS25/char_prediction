@@ -122,10 +122,9 @@ context={"3":0,"6":1,"9":2}
 # Predict button
 if st.button("Predict"):
     # Create a new model with the user-specified embedding
-    model1 = NextChar(int(d2),len(stoi), int(d1), 10)
+    model1 = NextChar(int(d2),len(stoi), int(d1), 10).to(device)
     model_number=emb[str(d1)]*3+context[str(d2)]
     model1.load_state_dict(torch.load(f"./model_{model_number}.pt"), strict=False)
-    model1.to(device)
     model1.eval()
 # Use the scripted model for prediction
     prediction = generate_name(model1,t1,int(t2),int(d3),int(d2))
