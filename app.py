@@ -207,7 +207,7 @@ if st.button("Predict"):
     # Define your model
     model = NextChar(context_size, len(stoi), emb_dim, 10).to(device)
 
-    # Convert the model to TorchScript
+# Convert the model to TorchScript
     scripted_model = torch.jit.script(model)
 
 # Use the scripted model for prediction
