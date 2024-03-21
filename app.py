@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt # for making figures
 # %config InlineBackend.figure_format = 'retina'
 # from pprint import pprint
 
+from sklearn.decomposition import PCA
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load the data
@@ -80,7 +82,6 @@ emb = torch.nn.Embedding(len(stoi), emb_dim)
 
 
 
-from sklearn.decomposition import PCA
 
 def plot_emb(emb, itos, ax=None):
     # Get the weights of the embedding layer
@@ -137,8 +138,8 @@ def generate_name(model, itos, stoi, block_size, max_len=10):
         context = context[1:] + [ix]
     return name
 
-for i in range(10):
-    print(generate_name(model, itos, stoi, block_size))
+# for i in range(10):
+#     print(generate_name(model, itos, stoi, block_size))
 
 # Train the model
 
