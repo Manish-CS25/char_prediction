@@ -6,9 +6,9 @@ import torch.nn.functional as F
 from torch import nn
 import pandas as pd
 import matplotlib.pyplot as plt # for making figures
-%matplotlib inline
-%config InlineBackend.figure_format = 'retina'
-from pprint import pprint
+# %matplotlib inline
+# %config InlineBackend.figure_format = 'retina'
+# from pprint import pprint
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
