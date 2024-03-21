@@ -190,5 +190,5 @@ text_input = st.text_input("Enter text for next character prediction")
 
 # Predict button
 if st.button("Predict"):
-    model = joblib.load("iris_model.pkl")
-    predictions = model.predict(text_input, context_size, embedding_dim)
+   for i in range(10):
+    print(generate_name(model, itos, stoi, block_size=context_size))
