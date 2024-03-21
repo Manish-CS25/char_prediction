@@ -177,18 +177,25 @@ for epoch in range(1000):
 
 
 
-
-
 # Interface
-st.markdown("## Iris Species Prediction")
+st.markdown("## Next k character prediction app")
+
+# Sliders for context size and embedding dimension
+context_size = st.slider("Number of k characters prediction", min_value=1, max_value=10, value=5)
+emb_dim = st.slider("Embedding dimension", min_value=1, max_value=100, value=50)
+
 # Text input for next character prediction
-context_size = st.slider(
-    "Number of k characters prediction", min_value=1, max_value=10, value=5
-)
-embed_dim = st.slider("Embedding dimension", min_value=1, max_value=100, value=50)
 text_input = st.text_input("Enter text for next character prediction")
 
 # Predict button
 if st.button("Predict"):
-   for i in range(10):
-    print(generate_name(model, itos, stoi, block_size=context_size))
+    # Create a new model with the user-specified embedding dimension
+    model = NextChar(context_size, len(stoi), emb_dim, 10).to(device)
+    model = torch.compile(model)
+
+    # Convert the user's text input into a context for the model
+    context = [stoi[ch] for ch in text_input[-context_size:]]
+
+    # Generate and display the prediction
+    prediction = generate_name(model, itos, stoi, context_size)
+    st.write(prediction)
