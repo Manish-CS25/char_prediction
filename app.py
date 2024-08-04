@@ -26,15 +26,6 @@ class NextChar(nn.Module):
     x = self.lin2(x)
     return x
 
-
-
-
-
-
-
-
-
-
 # def plot_emb(emb, itos, ax=None):
 #     # Get the weights of the embedding layer
 #     weights = emb.weight.detach().cpu().numpy()
